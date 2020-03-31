@@ -1,0 +1,21 @@
+version: '3'
+
+# networks:
+#  openconnect:
+#    network: host
+    
+services:
+  vpn:
+    container_name: openconnect_vpn
+    image: wazum/openconnect-proxy:latest
+    privileged: true
+    volumes:
+      - "./certs/ssl_alu_fnoip.pem:/certs/ssl_alu_fnoip.pem"
+    env_file:
+      - .env
+    ports:
+      - 8888:8888
+      - 8889:8889
+    cap_add:
+      - NET_ADMIN
+    network_mode: host
